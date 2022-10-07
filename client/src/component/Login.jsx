@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
 import { Mobile } from '../responsive';
+import { Link, useNavigate} from "react-router-dom"
 
 const Container = styled.div`
   width: 100%;
@@ -44,15 +45,10 @@ const Button = styled.button`
   cursor: pointer;
   margin-bottom: 10px;
 `;
-
-const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
-`;
-
 const Login = () => {
+
+  const navigate = useNavigate()
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -60,12 +56,24 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(email, password)
-    axios.post("http://localhost:5000/signup", {
+    axios.post("http://localhost:5000/login", {
         email: email,
         password: password
     })
     .then(res => {
         console.log(res.data)
+
+        if(res.data.code === 500){
+          alert("User Not Found")
+        }
+        if(res.data.code === 404){
+          alert("Password is wrong")
+        }
+        if(res.data.code === 200){
+          /// move to home page
+            navigate('/')
+            localStorage.setItem('TOKEN', res.data.token)
+        }
     }).catch(err => {
         console.log(err)
     })
