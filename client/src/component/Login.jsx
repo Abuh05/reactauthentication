@@ -73,6 +73,7 @@ const Login = () => {
           /// move to home page
             navigate('/')
             localStorage.setItem('TOKEN', res.data.token)
+            localStorage.setItem('EMAIL', res.data.email)
         }
     }).catch(err => {
         console.log(err)

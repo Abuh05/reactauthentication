@@ -25,7 +25,7 @@ module.exports.login = (req, res) => {
         if(result.password !== req.body.password) {
             res.send({ code: 404, message: 'Wrong Password'})
         }else{
-            res.send({ code: 200, message: "user Found", token: 'hhhhhh'})
+            res.send({ email: result.email, code: 200, message: "user Found", token: 'hhhhhh'})
         }
     }).catch(err => {
         res.send({ code: 500, message: "user not found"})
