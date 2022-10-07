@@ -13,6 +13,8 @@ const Home = () => {
   return (
     <div>
         Welcome Home
+        <span>{"Jonny"}</span>
+        <button>LOGOUT</button>
     </div>
   )
 }
